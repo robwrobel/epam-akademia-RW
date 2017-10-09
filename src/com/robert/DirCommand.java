@@ -26,6 +26,7 @@ public class DirCommand extends Command {
     @Override
     void execute(Terminal t) {
         StringBuilder sb = new StringBuilder();
+        sb.append("Content of:");
         sb.append(getCurrentPath(t.getCurrentPath()));
         sb.append("\n");
         sb.append(getFileList(t.getCurrentPath()));
@@ -40,8 +41,15 @@ public class DirCommand extends Command {
         try {
             Stream<Path> stream = Files.walk(currentPath,1);
             Map<Path,Boolean> map=stream.collect(Collectors.toMap(Path::getFileName,Files::isDirectory));
-            
-            return map.toString();
+            StringBuilder output=new StringBuilder();
+            map.keySet().forEach((p) -> {
+                String prefix=map.get(p)?"DIR":"FILE";
+                output.append(prefix);
+                output.append("    ");
+                output.append(p.getFileName());
+                output.append("\n");
+            });
+            return output.toString();
         } catch (IOException ex) {
             return "";
         }
