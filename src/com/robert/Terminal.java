@@ -58,5 +58,9 @@ class Terminal {
     void setNextCommand(boolean nextCommand) {
         this.nextCommand = nextCommand;
     }
+
+    void setCurrentPath(Path currentPath) {
+        this.currentPath=currentPath;
+    }
     
 }
