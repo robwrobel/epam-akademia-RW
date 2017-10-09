@@ -15,7 +15,8 @@ import java.util.Scanner;
  */
 class Terminal {
     private boolean nextCommand=true;
-    private String prompt="$>";
+    private static final String DEFAULT_PROMPT="$";
+    private String prompt="$";
     private Path currentPath = Paths.get(".");
     
     Command currentCommand;
@@ -32,7 +33,8 @@ class Terminal {
     }
 
     private void displayPrompt() {
-        System.out.print(prompt); 
+        String actualPrompt=parsePrompt();
+        System.out.print(actualPrompt+">"); 
     }
 
     private void setCurrentCommand() {
@@ -61,6 +63,21 @@ class Terminal {
 
     void setCurrentPath(Path currentPath) {
         this.currentPath=currentPath;
+    }
+    
+    void setPrompt(String prompt) {
+        this.prompt=prompt;
+    }
+
+    private String parsePrompt() {
+        String tmpPrompt;
+        tmpPrompt=prompt.replace("$cwd", getCurrentPath().normalize().toAbsolutePath().toString());
+        
+        return tmpPrompt;
+    }
+
+    void setDefaultPrompt() {
+        setPrompt(DEFAULT_PROMPT); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

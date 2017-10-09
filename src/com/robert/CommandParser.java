@@ -35,6 +35,9 @@ class CommandParser {
                 break;
             case "exit" :
                 command=new ExitCommand();
+                break;  
+            case "prompt" :
+                command=new PromptCommand(parameterString);
                 break;                
             default:
                 command=new WrongCommand(commandString);
