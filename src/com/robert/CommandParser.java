@@ -38,7 +38,10 @@ class CommandParser {
                 break;  
             case "prompt" :
                 command=new PromptCommand(parameterString);
-                break;                
+                break;   
+            case "tree" :
+                command=new TreeCommand(parameterString);
+                break;                  
             default:
                 command=new WrongCommand(commandString);
                 break;
