@@ -27,7 +27,7 @@ class Terminal {
             setCurrentCommand();
             executeCommand();
             displayResults();
-            updateStatistics();
+           // updateStatistics();
         } while (nextCommand);
     }
 
@@ -53,6 +53,10 @@ class Terminal {
     
     Path getCurrentPath() {
         return currentPath;
+    }
+    
+    void setNextCommand(boolean nextCommand) {
+        this.nextCommand = nextCommand;
     }
     
 }

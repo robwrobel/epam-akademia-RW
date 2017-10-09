@@ -33,6 +33,9 @@ class CommandParser {
             case "cd" :
                 command=new CdCommand(parameterString);
                 break;
+            case "exit" :
+                command=new ExitCommand();
+                break;                
             default:
                 command=new WrongCommand();
                 break;
