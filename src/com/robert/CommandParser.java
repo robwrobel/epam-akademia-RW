@@ -37,7 +37,7 @@ class CommandParser {
                 command=new ExitCommand();
                 break;                
             default:
-                command=new WrongCommand();
+                command=new WrongCommand(commandString);
                 break;
         }
         return command;

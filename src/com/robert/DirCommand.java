@@ -43,7 +43,7 @@ public class DirCommand extends Command {
             Map<Path,Boolean> map=stream.collect(Collectors.toMap(Path::getFileName,Files::isDirectory));
             StringBuilder output=new StringBuilder();
             map.keySet().forEach((p) -> {
-                String prefix=map.get(p)?"DIR":"FILE";
+                String prefix=map.get(p)?"DIR ":"FILE";
                 output.append(prefix);
                 output.append("    ");
                 output.append(p.getFileName());

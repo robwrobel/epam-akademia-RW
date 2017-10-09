@@ -10,13 +10,15 @@ package com.robert;
  * @author Robert
  */
 public class WrongCommand extends Command {
+    private String commandString="";
 
-    public WrongCommand() {
+    public WrongCommand(String commandString) {
+        this.commandString=commandString;
     }
 
     @Override
     void execute(Terminal t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        result=commandString+": Unknown command";
     }
     
 }
