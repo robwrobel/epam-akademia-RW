@@ -7,46 +7,34 @@ package com.robert;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Robert
  */
 class CommandParser {
-
-    Command parseCommand(String line) {
-        Command command;
+    private String commandString;
+    private String parameterString;
+    void parseCommand(String line) {
         Scanner s = new Scanner(line);
-        String commandString="";
-        String parameterString="";
+        commandString="";
+        parameterString="";
         try {
             commandString=s.next();
             parameterString=s.nextLine();
         } catch (NoSuchElementException e) {
-            
+            Logger.getLogger(CommandParser.class.getName()).log(Level.SEVERE, null, e);
         }
-        
-        switch (commandString) {
-            case "dir" : 
-                command=new DirCommand();
-                break;
-            case "cd" :
-                command=new CdCommand(parameterString);
-                break;
-            case "exit" :
-                command=new ExitCommand();
-                break;  
-            case "prompt" :
-                command=new PromptCommand(parameterString);
-                break;   
-            case "tree" :
-                command=new TreeCommand(parameterString);
-                break;                  
-            default:
-                command=new WrongCommand(commandString);
-                break;
-        }
-        return command;
+    }
+    
+    String getCommandString() {
+        return commandString;
+    }
+    
+    String getParameterString() {
+        return parameterString;
     }
     
 }

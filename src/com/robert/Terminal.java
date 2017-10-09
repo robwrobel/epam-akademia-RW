@@ -18,7 +18,7 @@ class Terminal {
     private static final String DEFAULT_PROMPT="$";
     private String prompt="$";
     private Path currentPath = Paths.get(".");
-    
+    CommandFactory commandFactory = new CommandFactory();
     Command currentCommand;
     Scanner scanner = new Scanner(System.in); 
     CommandParser parser = new CommandParser();
@@ -39,7 +39,9 @@ class Terminal {
 
     private void setCurrentCommand() {
         String line = scanner.nextLine();
-        currentCommand = parser.parseCommand(line);    }
+        parser.parseCommand(line); 
+        currentCommand=commandFactory.getCommand(parser.getCommandString(), parser.getParameterString());
+    }
 
     private void executeCommand() {
         currentCommand.execute(this);
