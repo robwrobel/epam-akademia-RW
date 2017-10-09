@@ -5,18 +5,46 @@
  */
 package com.robert;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Map;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  *
  * @author Robert
  */
 public class DirCommand extends Command {
+    
 
     public DirCommand() {
     }
 
     @Override
-    void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void execute(Terminal t) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getCurrentPath(t.getCurrentPath()));
+        sb.append("\n");
+        sb.append(getFileList(t.getCurrentPath()));
+        result=sb.toString();
+    }
+
+    private String getCurrentPath(Path currentPath) {
+        return currentPath.toAbsolutePath().normalize().toString();//To change body of generated methods, choose Tools | Templates.
+    }
+
+    private String getFileList(Path currentPath) {
+        try {
+            Stream<Path> stream = Files.walk(currentPath,1);
+            Map<Path,Boolean> map=stream.collect(Collectors.toMap(Path::getFileName,Files::isDirectory));
+            
+            return map.toString();
+        } catch (IOException ex) {
+            return "";
+        }
     }
     
 }

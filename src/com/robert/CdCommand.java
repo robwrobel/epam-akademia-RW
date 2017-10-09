@@ -15,7 +15,7 @@ public class CdCommand extends Command {
     }
 
     @Override
-    void execute() {
+    void execute(Terminal t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

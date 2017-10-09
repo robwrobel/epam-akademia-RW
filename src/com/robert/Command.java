@@ -10,5 +10,10 @@ package com.robert;
  * @author Robert
  */
 abstract class Command {
-    abstract void execute();
+    String result="";
+    abstract void execute(Terminal t);
+
+    String getResult() {
+        return result; //To change body of generated methods, choose Tools | Templates.
+    }
 }

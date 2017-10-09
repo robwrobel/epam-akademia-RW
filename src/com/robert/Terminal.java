@@ -5,6 +5,8 @@
  */
 package com.robert;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -14,6 +16,7 @@ import java.util.Scanner;
 class Terminal {
     private boolean nextCommand=true;
     private String prompt="$>";
+    private Path currentPath = Paths.get(".");
     
     Command currentCommand;
     Scanner scanner = new Scanner(System.in); 
@@ -37,15 +40,19 @@ class Terminal {
         currentCommand = parser.parseCommand(line);    }
 
     private void executeCommand() {
-        currentCommand.execute();
+        currentCommand.execute(this);
     }
 
     private void displayResults() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(currentCommand.getResult()); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void updateStatistics() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    Path getCurrentPath() {
+        return currentPath;
     }
     
 }
