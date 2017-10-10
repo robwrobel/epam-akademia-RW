@@ -7,8 +7,6 @@ package com.robert;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,7 +23,7 @@ class CommandParser {
             commandString=s.next();
             parameterString=s.nextLine();
         } catch (NoSuchElementException e) {
-            Logger.getLogger(CommandParser.class.getName()).log(Level.SEVERE, null, e);
+            
         }
     }
     

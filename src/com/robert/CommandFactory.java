@@ -5,23 +5,29 @@
  */
 package com.robert;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Robert
  */
 public class CommandFactory {
-    public Command getCommand(String command,String parameterString) {
-        if (command.equals("dir")) 
-            return new DirCommand();
-        else if (command.equals("cd"))
-            return new CdCommand(parameterString);
-        else if (command.equals("exit"))
-            return new ExitCommand();
-        else if (command.equals("prompt"))
-            return new PromptCommand(parameterString);
-        else if (command.equals("tree"))  
-            return new TreeCommand(parameterString);
-        else                  
-            return new WrongCommand(command);
+    private interface Factory {
+        Command create(String command,String parameterString);
     }
+    private static final Map<String,Factory> factoryMap = new HashMap<>();
+    static {
+        factoryMap.put("dir", (c,p)->new DirCommand());
+        factoryMap.put("cd", (c,p)->new CdCommand(p));
+        factoryMap.put("exit", (c,p)->new ExitCommand());
+        factoryMap.put("prompt", (c,p)->new PromptCommand(p));
+        factoryMap.put("tree", (c,p)->new TreeCommand(p));
+    }
+ 
+
+    public Command getCommand(String command,String parameterString) {
+        Factory creator=factoryMap.getOrDefault(command, (c,p)->new WrongCommand(c));
+        return creator.create(command, parameterString);
+   }
 }
