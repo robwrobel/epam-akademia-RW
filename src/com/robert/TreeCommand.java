@@ -49,16 +49,22 @@ public class TreeCommand extends Command {
     
     private String getTree(Path currentPath) {
         StringBuilder out=new StringBuilder();
+        String tree;
         try {
             
             Stream<Path> stream = Files.walk(currentPath);
-            stream.filter(p->Files.isDirectory(p))
+            stream.filter(p->Files.isDirectory(p)).map(p->p.relativize(currentPath).resolve(p.getFileName()))
                     .forEach(p-> {out.append(p.toString());out.append("\n");});
+            tree=putDashes(out);
 
         } catch (IOException ex) {
             return "";
         }
-        return out.toString();
+        return tree;
     }    
+
+    private String putDashes(StringBuilder tree) {
+        return tree.toString().replaceAll(".*?\\\\", "-");
+    }
     
 }
