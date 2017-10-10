@@ -32,7 +32,7 @@ class CommandParser {
     }
     
     String getParameterString() {
-        return parameterString;
+        return parameterString.trim();
     }
     
 }

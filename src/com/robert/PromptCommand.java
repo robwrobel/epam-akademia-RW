@@ -10,9 +10,8 @@ package com.robert;
  * @author Robert
  */
 public class PromptCommand extends Command {
-    private final String parameterString;
-    public PromptCommand(String parameterString) {
-        this.parameterString=parameterString.trim();
+    public PromptCommand(String command,String parameter) {
+        super(command,parameter);
     }
 
     @Override
@@ -20,12 +19,13 @@ public class PromptCommand extends Command {
         if (isReset()) {
             t.setDefaultPrompt();
         } else {
-            t.setPrompt(parameterString);
+            t.setPrompt(getParameter());
         }
+        setSuccess(true);
     }
 
     private boolean isReset() {
-        return parameterString.equals("reset"); //To change body of generated methods, choose Tools | Templates.
+        return getParameter().equals("reset");
     }
     
 }

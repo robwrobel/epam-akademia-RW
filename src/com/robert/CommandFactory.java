@@ -18,16 +18,17 @@ public class CommandFactory {
     }
     private static final Map<String,Factory> factoryMap = new HashMap<>();
     static {
-        factoryMap.put("dir", (c,p)->new DirCommand());
-        factoryMap.put("cd", (c,p)->new CdCommand(p));
-        factoryMap.put("exit", (c,p)->new ExitCommand());
-        factoryMap.put("prompt", (c,p)->new PromptCommand(p));
-        factoryMap.put("tree", (c,p)->new TreeCommand(p));
+        factoryMap.put("dir", (c,p)->new DirCommand(c,p));
+        factoryMap.put("cd", (c,p)->new CdCommand(c,p));
+        factoryMap.put("exit", (c,p)->new ExitCommand(c,p));
+        factoryMap.put("prompt", (c,p)->new PromptCommand(c,p));
+        factoryMap.put("tree", (c,p)->new TreeCommand(c,p));
+        factoryMap.put("statistics", (c,p)->new StatsCommand(c,p));
     }
  
 
     public Command getCommand(String command,String parameterString) {
-        Factory creator=factoryMap.getOrDefault(command, (c,p)->new WrongCommand(c));
+        Factory creator=factoryMap.getOrDefault(command, (c,p)->new WrongCommand(c,p));
         return creator.create(command, parameterString);
    }
 }

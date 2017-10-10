@@ -10,15 +10,16 @@ package com.robert;
  * @author Robert
  */
 public class WrongCommand extends Command {
-    private String commandString="";
+    
 
-    public WrongCommand(String commandString) {
-        this.commandString=commandString;
+    public WrongCommand(String command,String parameter) {
+        super(command,parameter);
     }
 
     @Override
     void execute(Terminal t) {
-        result=commandString+": Unknown command";
+        setResult(getName()+": Unknown command");
+        setSuccess(false);
     }
     
 }

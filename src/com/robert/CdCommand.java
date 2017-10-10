@@ -15,24 +15,25 @@ import java.nio.file.Paths;
  */
 public class CdCommand extends Command {
 
-    private String parameterString="";
-    public CdCommand(String parameterString) {
-        this.parameterString=parameterString.trim();
+    public CdCommand(String name,String parameter) {
+        super(name,parameter);
     }
 
     @Override
     void execute(Terminal t) {
         if (isValidParameter(t.getCurrentPath())) {
-            Path targetPath=Paths.get(parameterString);
+            Path targetPath=Paths.get(getParameter());
             Path currentPath=t.getCurrentPath().resolve(targetPath).normalize().toAbsolutePath();
-            t.setCurrentPath(currentPath);               
+            t.setCurrentPath(currentPath);      
+            setSuccess(true);
         } else {
-            result="Unknown dir:"+parameterString;
+            setResult("Unknown dir:"+getParameter());
+            setSuccess(false);
         }
     }
 
     private boolean isValidParameter(Path currentPath) {
-        Path tmpCurrentPath=currentPath.resolve(parameterString);
+        Path tmpCurrentPath=currentPath.resolve(getParameter());
 
         File currentFile=tmpCurrentPath.toFile();
         if (currentFile.exists()) {

@@ -16,24 +16,24 @@ import java.util.stream.Stream;
  * @author Robert
  */
 public class TreeCommand extends Command {
-    String parameterString="";
-
-    public TreeCommand(String parameterString) {
-        this.parameterString=parameterString.trim();
+    
+    public TreeCommand(String command,String parameter) {
+        super(command,parameter);
     }
 
     @Override
     void execute(Terminal t) {
         if (isValidParameter(t.getCurrentPath())) {
-            result=getTree(t.getCurrentPath());
-        } else {
-            result="Unknown dir:"+parameterString;
+            setResult(getTree(t.getCurrentPath()));
+         } else {
+            setResult("Unknown dir:"+getParameter());
+            setSuccess(false);
         }
 
     }
 
     private boolean isValidParameter(Path currentPath) {
-        Path tmpCurrentPath=currentPath.resolve(parameterString);
+        Path tmpCurrentPath=currentPath.resolve(getParameter());
 
         File currentFile=tmpCurrentPath.toFile();
         if (currentFile.exists()) {
@@ -56,8 +56,10 @@ public class TreeCommand extends Command {
             stream.filter(p->Files.isDirectory(p)).map(p->p.relativize(currentPath).resolve(p.getFileName()))
                     .forEach(p-> {out.append(p.toString());out.append("\n");});
             tree=putDashes(out);
+            setSuccess(true);
 
         } catch (IOException ex) {
+            setSuccess(false);
             return "";
         }
         return tree;

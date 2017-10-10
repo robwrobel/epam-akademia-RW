@@ -20,7 +20,8 @@ import java.util.stream.Stream;
 public class DirCommand extends Command {
     
 
-    public DirCommand() {
+    public DirCommand(String command,String parameter) {
+        super(command,parameter);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class DirCommand extends Command {
         sb.append(getCurrentPath(t.getCurrentPath()));
         sb.append("\n");
         sb.append(getFileList(t.getCurrentPath()));
-        result=sb.toString();
+        setResult(sb.toString());
     }
 
     private String getCurrentPath(Path currentPath) {
@@ -49,8 +50,10 @@ public class DirCommand extends Command {
                 output.append(p.getFileName());
                 output.append("\n");
             });
+            setSuccess(true);
             return output.toString();
         } catch (IOException ex) {
+            setSuccess(false);
             return "";
         }
     }

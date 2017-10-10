@@ -11,12 +11,14 @@ package com.robert;
  */
 public class ExitCommand extends Command {
 
-    public ExitCommand() {
+    public ExitCommand(String command,String parameter) {
+        super(command,parameter);
     }
 
     @Override
     void execute(Terminal t) {
-        result="Bye"; 
+        setResult("Bye");
+        setSuccess(true);
         t.setNextCommand(false);
     }
     

@@ -22,13 +22,15 @@ class Terminal {
     Command currentCommand;
     Scanner scanner = new Scanner(System.in); 
     CommandParser parser = new CommandParser();
+    Statistics stats = new Statistics();
+    
     void start() {
         do {
             displayPrompt();
             setCurrentCommand();
             executeCommand();
             displayResults();
-           // updateStatistics();
+            updateStatistics();
         } while (nextCommand);
     }
 
@@ -52,7 +54,7 @@ class Terminal {
     }
 
     private void updateStatistics() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        stats.updateStats(currentCommand); //To change body of generated methods, choose Tools | Templates.
     }
     
     Path getCurrentPath() {
@@ -80,6 +82,10 @@ class Terminal {
 
     void setDefaultPrompt() {
         setPrompt(DEFAULT_PROMPT); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    Statistics getStatistics() {
+        return stats;
     }
     
 }
